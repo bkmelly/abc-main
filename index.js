@@ -110,6 +110,39 @@ app.get('/check-out', (req, res) => {
     res.render('check-out.ejs');
 });
 
+// Form submission and authentication route
+// Route for handling form submission
+app.post('/submit-code', (req, res) => {
+    const { name, code } = req.body;
+
+    // Check if the 'name' exists in the 'clcompanyinfo' table
+    const selectQuery = 'SELECT * FROM clcompanyinfo WHERE name = ?';
+    dbconn.query(selectQuery, [name], (err, results) => {
+        if (err) {
+            console.error('Database Error on SELECT:', err);
+            res.status(500).send('Server Error on SELECT');
+        } else if (results.length === 0) {
+            res.status(400).send('Name not found');
+        } else if (results[0].features) {
+            // Check if 'features' column is already populated
+            res.status(400).send('Name already authenticated');
+        } else {
+            // Update the 'features' column with the new 'code'
+            const updateQuery = 'UPDATE clcompanyinfo SET features = ? WHERE name = ?';
+            dbconn.query(updateQuery, [code, name], (updateErr) => {
+                if (updateErr) {
+                    console.error('Database Error on UPDATE:', updateErr);
+                    res.status(500).send('Server Error on UPDATE');
+                } else {
+                    res.send('Success');
+                }
+            });
+        }
+    });
+});
+
+
+
 // Sign-up route
 app.post('/signup', (req, res) => {
     const { username, email, password } = req.body;

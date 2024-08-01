@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sales Page</title>
-  <!-- <link rel="stylesheet" href="test.css"> -->
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abc Launch</title>
+    <title>Payment Page</title>
     <!-- favicon  -->
     <link rel="shortcut icon" href="assets/images/nexus.jpg" type="image/x-icon">
     <!-- faremwork of css -->
@@ -23,458 +18,320 @@
     <link rel="stylesheet" href="assets/css/slick.min.css">
     <!-- animation of css -->
     <link rel="stylesheet" href="assets/css/aos.css">
+    <style>
+       
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .timer {
+            text-align: center;
+            font-size: 2em;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        .payment-container, .description-container {
+            margin-top: 30px;
+        }
+        .payment-types {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .paymenttype {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .paymenttype.selected {
+            border: 2px solid #007bff;
+            transform: scale(1.1);
+        }
+        .card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 100px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card i {
+            font-size: 2em;
+        }
+        .card-content {
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+        }
+        .payment-form {
+            display: none;
+        }
+        .payment-form.active {
+            display: block;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+        .description-container {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .description-container h3, .description-container p, .description-container ul {
+            margin-bottom: 15px;
+        }
+        .upsell {
+            background-color: #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .upsell h3 {
+            margin-bottom: 10px;
+        }
+        /* new form */
+        .form-container {
+            max-width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
 </head>
-<style>
-    /* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-} */
-
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    /* background: #fff; */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.timer {
-    text-align: center;
-    font-size: 50px;
-    color: red;
-    margin-bottom: 20px;
-}
-
-.content-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.payment-container,
-.description-container {
-    flex: 1 1 45%;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.payment-container h1,
-.description-container h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-}
-
-.payment-types {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.paymenttype {
-    cursor: pointer;
-}
-
-.paymenttype .card {
-    padding: 15px;
-    background: #fff;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    transition: box-shadow 0.3s, border 0.3s;
-}
-
-.paymenttype .card-content {
-    text-align: center;
-    font-size: 18px;
-    color: #333;
-}
-
-.paymenttype.selected .card {
-    border: 2px solid #007bff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.payment-forms {
-    display: flex;
-    flex-direction: column;
-}
-
-.payment-form {
-    display: none;
-}
-
-.payment-form.active {
-    display: block;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #555;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.card-details {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.card-details .form-group {
-    flex: 1 1 45%;
-}
-
-.card-details .form-group input {
-    width: 100%;
-}
-
-.btn-submit {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background:linear-gradient(60deg, #8438ff 0%, #020024 100%);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-submit:hover {
-    background-color: #0056b3;
-}
-
-.description-container p,
-.description-container ul {
-   
-    margin-bottom: 15px;
-    font-size: 16px;
-    color: #555;
-}
-.h2c{
-    color: #020024;
-    /* text-align: center; */
-}
-.h2c2{
-    color: #020024;
-    text-align: center;
-}
-.upsell {
-    padding: 20px;
-    background:  #222022;
-    border-radius: 8px;
-    border: 1px solid #000;
-    text-align: center;
-}
-
-
-.upsell h3 {
-    margin-bottom: 10px;
-    font-size: 20px;
-    color:#fff;
-}
-.upsell p{
-    color: #fff;
-}
-.upsell button {
-    padding: 10px 20px;
-    background:linear-gradient(60deg, #8438ff 0%, #020024 100%);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.upsell button:hover {
-    background-color: #0056b3;
-}
-
-@media (max-width: 768px) {
-    .content-container {
-        flex-direction: column;
-    }
-
-    .payment-container,
-    .description-container {
-        flex: 1 1 100%;
-    }
-
-    .card-details .form-group {
-        flex: 1 1 100%;
-    }
-}
-</style>
 <body>
-    <div class="site-wrapper">
-        <div class="first_nav_hero_about">
-            <!-- ======== 1.1. header section ======== -->
-        <header>
-            <nav class="container navbar navbar-expand-lg ">
-                    <div class="container-fluid">
-                        <!-- site logo -->
-                        <a class="nav-logo p-0" href="/"><img src="assets/images/abc launch logo (white).png" alt="logo"></a>
-                                <!-- navigation button  -->
-                        <button class="navbar-toggle" onclick="openNav()" type="button"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fa-solid fa-bars"></i>
-                        </button>
 
-                        <!-- navigation bar manu  -->
-                        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                            <ul class="navbar-nav d-flex justify-content-center align-items-center gap-lg-2 gap-md-2 gap-sm-2 gap-2 mb-2 mb-lg-0">
-                                <!-- <li class="nav-item">
-                                    <a class="nav-link active" href="/">Home</a>
-                                </li>
-                                
-                                 <li class="nav-item">
-                                    <a class="nav-link" href="/about">About us</a>
-                                </li>  -->
-                                <!-- <li class="nav-item">
-                                    <a class="nav-link" href="/feature">Feature</a>
-                                </li>  -->
-                                <li class="dropdown">
-                                    <!-- <a class="nav-link " href="#">Pages  -->
-                                        <!-- <i class="fa-sharp fa-solid fa-sort-down"></i></a> -->
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="/pricing">Pricing</a></li>
-                                        <li><a class="dropdown-item" href="/contact">Contact</a></li>
-                                        <li><a class="dropdown-item" href="/team">Team</a></li>
-                                        <li><a class="dropdown-item" href="/testimonials">Testimonials</a></li>
-                                        <li><a class="dropdown-item" href="/blogs">Blogs</a></li>
-                                        <li><a class="dropdown-item" href="/faq">FAQ</a></li>
-                                        <li><a class="dropdown-item" href="/404">404</a></li>
-                                        <li><a class="dropdown-item" href="/coming">Coming Soon</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a id="search-bar-bt" class="nav-link" href="#"><i
-                                            class="fa-solid fa-magnifying-glass"></i></a>
-                                </li>
-                                <!-- <li class="nav-item header_btn">
-                                    <a class="nav-link nav-hrf btn-hover1" href="/signin">Create Account</a>
-                                </li> -->
-                                 <!-- <li class="nav-item" onclick="open_right_side()">
-                                    <a class="nav-link" href="#"><i class="fa-sharp fa-solid fa-bars"></i></a>
-                                </li>  -->
-                            </ul>   
-                        </div>
-                    </div>
-            </nav>
-                <!--============ navigation left slidebar================-->
-                 <aside>
-                    <div id="mySidenav" class="sidenav">
-                         <div class="side-nav-logo d-flex justify-content-between align-items-center ps-4 pe-3">
-                            <figure class="navbar-brand"><a href="/"><img src="assets/images/n (1).png" alt="img"
-                                class="nav-logo"></a></figure>
-                            <div class="closebtn" onclick="closeNav()"><i
-                                    class="fa-solid fa-square-xmark side-bar-close-btn"></i></div>
-                        </div> 
-                        <ul>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/about">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/feature">Feature</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/pricing">Pricing</a>
-                            </li>
-                            <li class="nav-item">
-                                <div class="d-flex align-items-center justify-content-between pt-3" id="slid-btn">
-                                    <button class="a-slid">Pages</button>
-                                    <i class="fa-solid fa-caret-down pe-4"></i>
-                                </div>
-                                <ul id="slid-drop" class="myst">
-                                    <li><a href="/contact">Contact</a></li>
-                                    <li><a href="/team">Team</a></li>
-                                    <li><a href="/testimonials">Testimonials</a></li>
-                                    <li><a href="/blogs">Blogs</a></li>
-                                    <li><a href="/faq">FAQ</a></li>
-                                    <li><a href="/404">404</a></li>
-                                    <li><a href="/coming">Coming Soon</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </aside> 
-                <!--================== navigation drop search bar================-->
-                 <div class="search" id="search-bar">
-                    <form class="d-flex nav-search">
-                        <input type="text" name="search" placeholder="Enter your text">
-                        <button class="btn-hover1" type="submit">Search</button>
-                    </form>
-                    <button id="remove-btn">
-                        <i class="fa-solid fa-square-xmark "></i>
-                    </button>
-                </div> 
-                <!--=================navigation Right slidebar==================-->
-                 <section class="right-sidbar" id="right_side">
-                    <div class="d-flex justify-content-between align-items-center">
-                         site logo 
-                        <a class="p-0 " href="/"><img src="assets/images/abc launch logo (white).png" alt="logo"></a>
-                        <button class="close_right_sidebar fa-solid fa-xmark" onclick="close_right_sade()"> </button>
-                    </div>
-                    <p class="mt-4 pb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
-                    <a href="#" class="btn-hover1">Discover More</a>
-                    <hr>
-                    <h5 class="mt-4 mb-4">Connected details:</h5>
-                    <ul class="d-flex flex-column gap-3">
-                        <li>
-                            <a href="#"> <i class="fa-solid fa-phone"></i></a>
-                            <a href="#">yourname@email.com</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa-solid fa-envelope"></i></a>
-                            <a href="#">+123-456-7890</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa-solid fa-clock"></i></a>
-                            <a href="#">Office Hours: 8AM - 11PM Sunday -
-                                Weekend Day</a>
-                        </li>
-                    </ul>
-                    <span class="d-flex gap-4 mt-4">
-                        <a href="#" class="p-0"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" class="p-0"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="p-0"><i class="fa-brands fa-twitter"></i></a>
-                    </span>
-                </section>
-            </header>
-    <div class="container">
-        <h2 class="text-center">All You Need To Get Started, To Establish your Authority, and To Deliver Your Unique Solution.</h2>
-    <P class="text-center news-p">A comprehensive collection of free and exclusive videos, in-depth eBooks, practical guides, customizable templates, and valuable downloads — <b>Its basically everything you need to succeed!</b></P>
-    <!-- <div id="news-mainCTA">
-        <div class="text-lg-start text-md-start text-sm-center text-center "><a class="btn-hover1" href="#">Create A Free Account</a></div>
-    </div> -->
-    
-    </div>
-
-
-    <div class="container">
-        <div class="timer" id="timer">Time Left: 07:00:00</div>
-        <div class="content-container">
-            <div class="description-container">
-                <h3 class="h2c">Product Description Lorem ipsum dolor sit.</h3>
-                <p>This product offers the following benefits:</p>
-                <ul>
-                    <li><input type="checkbox" id="benefit1"> Benefit 1</li>
-                    <li><input type="checkbox" id="benefit2"> Benefit 2</li>
-                    <li><input type="checkbox" id="benefit3"> Benefit 3</li>
-                </ul>
-                <div class="upsell">
-                    <h3>Special Offer!</h3>
-                    <p>Add this extra feature for only $9.99 more!</p>
-                    <button>Add to Order</button>
-                </div>
-            </div>
-            <div class="payment-container">
-                <h3 class="h2c2">Product Description Lorem ipsum dolor sit.</h3>
-                <p id="choosen-paymenttype">Pesapal</p>
-                <ul class="payment-types">
-                    <li class="paymenttype pesapal selected" data-paymenttype="Pesapal">
-                        <div class="card">
-                            <div class="card-content">
-                                <span>Pesapal</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="payment-forms">
-                    <div class="payment-form pesapal-form active">
-                        <form>
-                            <div class="form-group">
-                                <label for="pesapal-name">Name</label>
-                                <input type="text" id="pesapal-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="pesapal-surname">Surname</label>
-                                <input type="text" id="pesapal-surname">
-                            </div>
-                            <div class="form-group">
-                                <label for="pesapal-email">Email</label>
-                                <input type="email" id="pesapal-email">
-                            </div>
-                            <div class="form-group">
-                                <label for="pesapal-phone">Phone Number</label>
-                                <input type="text" id="pesapal-phone">
-                            </div>
-                            <div class="form-group card-details">
-                                <div class="form-group">
-                                    <label for="pesapal-number">Card Number</label>
-                                    <input type="text" id="pesapal-number">
-                                </div>
-                                <div class="form-group">
-                                    <label for="pesapal-exp">Expiry Date</label>
-                                    <input type="text" id="pesapal-exp">
-                                </div>
-                                <div class="form-group">
-                                    <label for="pesapal-cvv">CVV</label>
-                                    <input type="text" id="pesapal-cvv">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-submit">Submit Payment</button>
-                        </form>
+<div class="container">
+    <h1 class="text-center">Secure Payment Page</h1>
+    <div class="timer" id="timer">15:00</div>
+    <div class="description-container">
+      <h3 class="h2c">Total Amount Due: $99</h3>
+      <!-- <div class="upsell">
+          <h3 class="h2c2">Special Offer!</h3>
+          <p>Get an additional service for only $49.99!</p>
+          <button type="button" class="btn-submit">Add to Cart</button>
+      </div> -->
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ullamcorper lectus vel orci interdum, nec scelerisque leo laoreet. Mauris dignissim, nulla et bibendum viverra, dolor libero condimentum ante, non tempus enim nisi id eros.</p>
+      <ul>
+          <li>Benefit 1: Lorem ipsum dolor sit amet</li>
+          <li>Benefit 2: Lorem ipsum dolor sit amet</li>
+          <li>Benefit 3: Lorem ipsum dolor sit amet</li>
+      </ul>
+  </div>
+    <div class="payment-container">
+        <h3>Select Payment Method</h3>
+        <div class="form-container">
+          <form id="verificationForm">
+              <div class="form-group">
+                  <label for="phoneNumber">Full Name</label> 
+                  <input type="text" id="name" name="checkout-name" placeholder="Enter your Full Name" required>
+              </div>
+              <div class="form-group">
+                   <label for="code">Transaction code</label>
+                  <input type="text" id="code" name="code" placeholder="Eg :SGU6EM27D8" required>
+              </div>
+              <button type="submit" class="submit-button">Authenticate</button>
+          </form>
+    <div class="message success" id="successMessage">Success! Your code has been submitted.</div>
+    <div class="message error" id="errorMessage">Error! <span id="errorDetails"></span></div>
+      </div>
+        <!-- <ul class="payment-types">
+            <li class="paymenttype" data-payment="credit">
+                <div class="card">
+                    <div class="card-content">
+                        <i class="fa fa-credit-card"></i> Credit Card
                     </div>
                 </div>
-            </div>
-           
-        </div>
+            </li>
+            <li class="paymenttype" data-payment="paypal">
+                <div class="card">
+                    <div class="card-content">
+                        <i class="fa fa-paypal"></i> PayPal
+                    </div>
+                </div>
+            </li>
+        </ul> -->
+        <!-- <div class="payment-forms">
+            <form id="credit-form" class="payment-form active">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" class="form-control" required>
+                </div>
+                <div class="form-group card-details">
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" placeholder="MM/YY" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cardName">Cardholder Name</label>
+                    <input type="text" id="cardName" placeholder="John Doe" class="form-control" required>
+                </div>
+                <button type="submit" class="btn-submit">Pay Now</button>
+            </form>
+            <form id="paypal-form" class="payment-form">
+                <div class="form-group">
+                    <label for="paypalEmail">PayPal Email</label>
+                    <input type="email" id="paypalEmail" placeholder="example@domain.com" class="form-control" required>
+                </div>
+                <button type="submit" class="btn-submit">Pay with PayPal</button>
+            </form>
+        </div> -->
     </div>
     
-  <script>
+</div>
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Timer
-    let timerElement = document.getElementById("timer");
-    let timeLeft = 600; // 10 minutes in seconds
-  
-    function updateTimer() {
-      let minutes = Math.floor(timeLeft / 60);
-      let seconds = timeLeft % 60;
-      timerElement.innerText = `Time Left:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-      if (timeLeft > 0) {
-        timeLeft--;
-      } else {
-        alert("Time is up!");
-      }
-    }
-  
-    setInterval(updateTimer, 1000);  
-    // Upsell Button
-    document.querySelector(".upsell button").addEventListener("click", function () {
-      alert("Upsell added to order!");
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".paymenttype").click(function() {
+            $(".paymenttype").removeClass("selected");
+            $(this).addClass("selected");
+            var paymentMethod = $(this).data("payment");
+            $(".payment-form").removeClass("active");
+            $("#" + paymentMethod + "-form").addClass("active");
+        });
+
+        $("#credit-form").submit(function(e) {
+            e.preventDefault();
+            alert("Credit Card payment submitted!");
+        });
+
+        $("#paypal-form").submit(function(e) {
+            e.preventDefault();
+            alert("PayPal payment submitted!");
+        });
+
+        function startTimer(duration, display) {
+    var timer = duration, days, hours, minutes, seconds;
+    setInterval(function () {
+        days = parseInt(timer / (60 * 60 * 24), 10);
+        hours = parseInt((timer % (60 * 60 * 24)) / (60 * 60), 10);
+        minutes = parseInt((timer % (60 * 60)) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        days = days < 10 ? "0" + days : days;
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(days + "d " + hours + "h " + minutes + "m " + seconds + "s");
+
+        if (--timer < 0) {
+            clearInterval(this);
+        }
+    }, 1000);
+}
+
+$(document).ready(function () {
+    var duration = 60 * 60 * 24 * 7, // 3 days in seconds
+        display = $('#timer');
+    startTimer(duration, display);
+});
+
     });
-  });
-  
-  </script>
+// Form submission and authentication 
+
+      document.getElementById('verificationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const code = document.getElementById('code').value;
+
+      fetch('/submit-code', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, code })
+      })
+      .then(response => response.text())
+      .then(data => {
+      if (data === 'Success') {
+      document.getElementById('successMessage').style.display = 'block';
+      document.getElementById('errorMessage').style.display = 'none';
+      } else {
+      document.getElementById('errorDetails').textContent = data;
+      document.getElementById('errorMessage').style.display = 'block';
+      document.getElementById('successMessage').style.display = 'none';
+      }
+      })
+      .catch(error => {
+      document.getElementById('errorDetails').textContent = 'An error occurred. Please try again.';
+      document.getElementById('errorMessage').style.display = 'block';
+      document.getElementById('successMessage').style.display = 'none';
+      });
+      });
+
+</script>
+
 </body>
 </html>
