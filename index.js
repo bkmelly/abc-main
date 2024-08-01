@@ -56,7 +56,7 @@ const isAuthenticated = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('index.html');
+    res.render('index.ejs');
 });
 
 app.get('/about', (req, res) => {
