@@ -56,47 +56,47 @@ const isAuthenticated = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('index.ejs');
+    res.render('index.html');
 });
 
 app.get('/about', (req, res) => {
-    res.render('about.ejs');
+    res.render('about.html');
 });
 
 app.get('/faq', (req, res) => {
-    res.render('faq.ejs');
+    res.render('faq.html');
 });
 
 app.get('/blogs', (req, res) => {
-    res.render('blogs.ejs');
+    res.render('blogs.html');
 });
 
 app.get('/feature', (req, res) => {
-    res.render('feature.ejs');
+    res.render('feature.html');
 });
 
 app.get('/pricing', (req, res) => {
-    res.render('pricing.ejs');
+    res.render('pricing.html');
 });
 
 app.get('/team', (req, res) => {
-    res.render('team.ejs');
+    res.render('team.html');
 });
 
 app.get('/testimonials', (req, res) => {
-    res.render('testimonials.ejs');
+    res.render('testimonials.html');
 });
 
 app.get('/coming', (req, res) => {
-    res.render('coming.ejs');
+    res.render('coming.html');
 });
 
 app.get('/contact', (req, res) => {
-    res.render('contact.ejs');
+    res.render('contact.html');
 });
 
 app.get('/404', (req, res) => {
-    res.render('404.ejs');
+    res.render('404.html');
 });
 
 app.get('/signin', (req, res) => {
@@ -104,10 +104,10 @@ app.get('/signin', (req, res) => {
 });
 
 app.get('/Kitchen', (req, res) => {
-    res.render('multistep.ejs');
+    res.render('multistep.html');
 });
 app.get('/check-out', (req, res) => {
-    res.render('check-out.ejs');
+    res.render('check-out.html');
 });
 
 // Form submission and authentication route
