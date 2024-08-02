@@ -4,12 +4,15 @@ const mysql = require('mysql');
 const session = require('express-session');
 const bodyParser = require('body-parser'); 
 const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const dbconn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'project 100' // Update to your database name if different
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'project 100'
 });
 
 const app = express();
@@ -21,10 +24,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set('view engine', 'ejs');
 
 app.use(session({
-    secret: 'secret-key',
+    secret: process.env.SESSION_SECRET || 'secret-key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using https
+    cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
 
 // Authorization middleware
@@ -33,7 +36,7 @@ app.use((req, res, next) => {
     const adminRoutes = ["/projects", "/admin"];
     if (req.session && req.session.user) {
         res.locals.user = req.session.user;
-        if (req.session.user.email !== "benaiahlagat24@gmail.com" && adminRoutes.includes(req.path)) { // Replace with actual admin email
+        if (req.session.user.email !== process.env.ADMIN_EMAIL && adminRoutes.includes(req.path)) {
             res.status(401).send("Unauthorized Access. Only admins allowed.");
         } else {
             next();
@@ -56,47 +59,47 @@ const isAuthenticated = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('index.html');
+    res.render('index.ejs');
 });
 
 app.get('/about', (req, res) => {
-    res.render('about.html');
+    res.render('about.ejs');
 });
 
 app.get('/faq', (req, res) => {
-    res.render('faq.html');
+    res.render('faq.ejs');
 });
 
 app.get('/blogs', (req, res) => {
-    res.render('blogs.html');
+    res.render('blogs.ejs');
 });
 
 app.get('/feature', (req, res) => {
-    res.render('feature.html');
+    res.render('feature.ejs');
 });
 
 app.get('/pricing', (req, res) => {
-    res.render('pricing.html');
+    res.render('pricing.ejs');
 });
 
 app.get('/team', (req, res) => {
-    res.render('team.html');
+    res.render('team.ejs');
 });
 
 app.get('/testimonials', (req, res) => {
-    res.render('testimonials.html');
+    res.render('testimonials.ejs');
 });
 
 app.get('/coming', (req, res) => {
-    res.render('coming.html');
+    res.render('coming.ejs');
 });
 
 app.get('/contact', (req, res) => {
-    res.render('contact.html');
+    res.render('contact.ejs');
 });
 
 app.get('/404', (req, res) => {
-    res.render('404.html');
+    res.render('404.ejs');
 });
 
 app.get('/signin', (req, res) => {
@@ -104,18 +107,16 @@ app.get('/signin', (req, res) => {
 });
 
 app.get('/Kitchen', (req, res) => {
-    res.render('multistep.html');
+    res.render('multistep.ejs');
 });
 app.get('/check-out', (req, res) => {
-    res.render('check-out.html');
+    res.render('check-out.ejs');
 });
 
 // Form submission and authentication route
-// Route for handling form submission
 app.post('/submit-code', (req, res) => {
     const { name, code } = req.body;
 
-    // Check if the 'name' exists in the 'clcompanyinfo' table
     const selectQuery = 'SELECT * FROM clcompanyinfo WHERE name = ?';
     dbconn.query(selectQuery, [name], (err, results) => {
         if (err) {
@@ -124,10 +125,8 @@ app.post('/submit-code', (req, res) => {
         } else if (results.length === 0) {
             res.status(400).send('Name not found');
         } else if (results[0].features) {
-            // Check if 'features' column is already populated
             res.status(400).send('Name already authenticated');
         } else {
-            // Update the 'features' column with the new 'code'
             const updateQuery = 'UPDATE clcompanyinfo SET features = ? WHERE name = ?';
             dbconn.query(updateQuery, [code, name], (updateErr) => {
                 if (updateErr) {
@@ -140,8 +139,6 @@ app.post('/submit-code', (req, res) => {
         }
     });
 });
-
-
 
 // Sign-up route
 app.post('/signup', (req, res) => {
@@ -194,7 +191,7 @@ app.post('/Kitchen', (req, res) => {
 
     dbconn.query(sql, values, (error) => {
         if (error) {
-            console.error('Database Error:', error); // Log the error
+            console.error('Database Error:', error);
             res.status(500).send('Server Error');
         } else {
             res.send('<script>alert("Form submission successful!"); window.location.href = "/blogs";</script>');
@@ -219,9 +216,6 @@ app.post('/subscribe', (req, res) => {
         res.send('Subscription successful');
     });
 });
-
-
-
 
 // Client dashboard
 app.get('/dashboard', isAuthenticated, (req, res) => {
@@ -253,6 +247,8 @@ app.get('/admin', isAuthenticated, (req, res) => {
     res.render('admin.ejs');
 });
 
-app.listen(7000, () => {
-    console.log('Server is running on port 7000');
+// Listen on the port provided by Heroku or 7000 for local development
+const PORT = process.env.PORT || 7000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
