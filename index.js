@@ -171,7 +171,7 @@ app.post('/signin', (req, res) => {
         if (error) {
             res.status(500).send('Server Error');
         } else if (users.length === 0) {
-            res.render('sign.up.in.ejs', { error: "Email not registered. Sign Up" });
+            res.render('sign.up.in.html', { error: "Email not registered. Sign Up" });
         } else {
             const user = users[0];
             const passwordMatch = bcrypt.compareSync(password, user.password);
@@ -179,7 +179,7 @@ app.post('/signin', (req, res) => {
                 req.session.user = user;
                 res.redirect('/blogs');
             } else {
-                res.render('sign.up.in.ejs', { error: "Incorrect password. Try again." });
+                res.render('sign.up.in.html', { error: "Incorrect password. Try again." });
             }
         }
     });
