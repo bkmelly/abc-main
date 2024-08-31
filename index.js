@@ -112,6 +112,12 @@ app.get('/Kitchen', (req, res) => {
 app.get('/check-out', (req, res) => {
     res.render('check-out.ejs');
 });
+app.get('/GetStarted', (req, res) => {
+    res.render('getstarted.ejs');
+});
+app.get('/Web-Mistakes', (req, res) => {
+    res.render('blog-1(Hero).ejs');
+});
 
 // Form submission and authentication route
 app.post('/submit-code', (req, res) => {
@@ -153,6 +159,7 @@ app.post('/signup', (req, res) => {
             dbconn.query('INSERT INTO Users (username, password, email, role, dateJoined) VALUES (?, ?, ?, ?, NOW())', [username, hashedPassword, email, 'client'], (error) => {
                 if (error) {
                     res.status(500).send('Server Error');
+                    console.log(error);
                 } else {
                     res.send('<script>alert("Sign up successful!"); window.location.href = "/blogs";</script>');
                 }
@@ -246,6 +253,15 @@ app.get('/projects', isAuthenticated, (req, res) => {
 app.get('/admin', isAuthenticated, (req, res) => {
     res.render('admin.ejs');
 });
+
+app.post("/data", (req,res)=>{
+    console.log(req.body);
+    // fs - iframe
+
+    // crreate ejs files --- iframesssse4
+    res.redirect("/page?id=uguthgfgf")
+}
+)
 
 // Listen on the port provided by Heroku or 7000 for local development
 const PORT = process.env.PORT || 7000;

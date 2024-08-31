@@ -6,3 +6,6 @@ documentation
 font-awesome-lib
 images
 documentation
+package-lock.json
+.env
+docmantation

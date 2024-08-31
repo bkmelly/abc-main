@@ -295,7 +295,7 @@ button{
 }
 a{
     font-size: 16px ;
-    font-weight: 300 ;
+    font-weight: 500;
     line-height: 22px;
     color: #FFFFFF;
     text-decoration: none ;
@@ -325,8 +325,9 @@ footer input:-webkit-autofill:active {
     position: relative;
     overflow: hidden;
     border-radius: 50px;
-    border: 1.5px solid #8438ff;
-    color: #fff;
+    /* border: 1.5px solid #2585f8; */
+    background: aliceblue;
+    color: #000;
     z-index: 1;
     padding: 16px 38px 16px 38px !important;
     transition: all 0.3s ease;
@@ -344,7 +345,7 @@ footer input:-webkit-autofill:active {
     width: 0;
     height: 100%;
     transition: all 0.3s ease;
-    background: linear-gradient(60deg, #8438ff) 0%, #020024 100%;
+    background: linear-gradient(-40deg, #8438ff 0%,#2585f8 100%);
     z-index: -1;
     top: 0;
     left: 0;
@@ -352,7 +353,7 @@ footer input:-webkit-autofill:active {
 
 .btn-hover1:hover::before {
     width: 100%;
-    background: linear-gradient(60deg, #8438ff 0%, #020024 100%);
+    background: linear-gradient(-40deg, #8438ff 0%,#2585f8 100%);
 }
 
 #backToTopBtn {
@@ -365,8 +366,8 @@ footer input:-webkit-autofill:active {
     padding: 17px 20px;
     border-radius: 10px;
     transition: all 0.3s ease;
-    background: linear-gradient(60deg, #8438ff) 0%, #8438ff 100%;
-    color: #8438ff;
+    background: linear-gradient(-40deg, #8438ff 0%,#2585f8 100%);
+    color: aliceblue;
 } 
 .moving {
     position: relative; /* Required for absolute positioning */
@@ -383,7 +384,7 @@ footer input:-webkit-autofill:active {
 /* ===== End of 02. Global Style ===== */
 .first_nav_hero_about{
     /* border: 1px solid red; */
-  background: radial-gradient(60.25% 73.6% at 14.86% 21.69%, transparent 0.82%, transparent 30.73%, #200d57 64.58%, rgba(3, 21, 33, 0.00) 100%);
+  /* background: radial-gradient(60.25% 73.6% at 14.86% 21.69%, transparent 0.82%, transparent 30.73%, #200d57 64.58%, rgba(3, 21, 33, 0.00) 100%); */
 }
 /* ======== 1.1. header section ======== */
 header{
@@ -407,7 +408,7 @@ header{
     margin-left: -52px;
 }
 .navbar ul li a {
-    color: #fff !important;
+    color: #000!important;
     font-weight: 500;
     
 }
@@ -670,7 +671,7 @@ background-color: #020024;
     margin: 25px 0 35px 0;
 }
 .hero p span{
-    color: #8438ff;
+    color: #2585f8 ;
 }
 .hero .position-relative{
     background-image: url(../images/bg/hero_bg.png);
@@ -719,8 +720,8 @@ background-color: #020024;
     padding-top: 10px;
 }
 .ab_card1{
-    background: transparent;
-    border: 1px solid #451d95;
+    background: #222222;
+    /* border: 1px solid #2585f8 ; */
     border-radius: 25px;
    padding: 40px 35px;
 }
@@ -741,8 +742,8 @@ background-color: #020024;
 .ab_card2{
     border-radius: 25px;
     padding: 40px 35px;
-    border: 1px solid #451d95;
-    background: transparent;
+    /* border: 1px solid #2585f8 ; */
+    background: #222222;
 }
 .ab_card2 hr{
      transform: rotate(90deg);
@@ -796,7 +797,8 @@ background-color: #020024;
     display: block;
     width: 60px;
     height: 60px;
-    background: linear-gradient(60deg, #8438ff 0%, #020024) 100%;
+    background: linear-gradient(60deg, #2585f8  0%, #8438ff) 100%;
+    background: linear-gradient(60deg, #8438ff  0%, #2585f8 ) 100%;
     border-radius: 50%;
     animation: pulse-border 1500ms ease-out infinite;
   }
@@ -863,6 +865,7 @@ background-color: #020024;
 /* ======== 1.6. gateway section ======== */
 .gateway{
     margin: 100px 0px;
+    
 }
 .gateway p{
     color: white;
@@ -881,7 +884,7 @@ background-color: #020024;
     color: #E4E4E4;
 }
 .style-bg h5{
-    color:  #CEC2FF;
+    color:  #E4E4E4;
 }
 /*.style-bg a{
     color: #e4e4e4;
@@ -900,7 +903,8 @@ background-color: #020024;
 }
 .gate figure{
     border-radius: 50px;
-    background: linear-gradient(161deg, #987fff 0%, aliceblue.16%, #8438ff 100%);
+    /* background: linear-gradient(161deg, aliceblue 100%, #2585f8 .16%, #8438ff 100%); */
+    background: aliceblue;
 }
 
 .gate img[alt='gate-img1']{
@@ -1241,6 +1245,37 @@ color: aliceblue;
     
 }
 /* ======== End of 1.7. services section ======== */
+/*---- start of frame ---- */
+ .frame {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.frame img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .frame {
+        padding: 10px;
+        height: auto;
+    }
+}
+
+/* Media query for larger screens */
+@media (min-width: 601px) {
+    .frame {
+        padding: 20px;
+    }
+}
+
+/*--- end of frame work section--- */
 
 /* ======== 1.11. question section ======== */
 .question{
@@ -1681,6 +1716,7 @@ input:not(:placeholder-shown) {
 .footer-search button{ 
     width: 200px;
     background-color: black;
+    color: white;
 }
 
 .privacy a {
